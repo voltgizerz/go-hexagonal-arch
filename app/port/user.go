@@ -12,5 +12,5 @@ type InMemoryUserRepositoryInterface interface {
 
 type InMemoryUserInteractorInterface interface {
 	CreateUser(name string) (*entity.User, error)
-	GetUser(c *gin.Context)
+	GetUser(c *gin.Context) (*entity.User, error)
 }

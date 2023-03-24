@@ -34,15 +34,9 @@ func (uc *UserController) CreateUser(c *gin.Context) {
 }
 
 func (uc *UserController) GetUser(c *gin.Context) {
-	user := &entity.User{}
-	if err := c.BindJSON(&user); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
-	}
-
-	user, err := uc.userInteractor.CreateUser(user.Name)
+	user, err := uc.userInteractor.GetUser(c)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		c.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
 		return
 	}
 	c.JSON(http.StatusOK, user)

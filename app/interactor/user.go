@@ -1,8 +1,6 @@
 package interactor
 
 import (
-	"net/http"
-
 	"github.com/gin-gonic/gin"
 	"github.com/voltgizerz/go-hexagonal-arch/app/entity"
 	"github.com/voltgizerz/go-hexagonal-arch/app/port"
@@ -28,12 +26,11 @@ func (ui *UserInteractor) CreateUser(name string) (*entity.User, error) {
 	return user, nil
 }
 
-func (ui *UserInteractor) GetUser(c *gin.Context) {
+func (ui *UserInteractor) GetUser(c *gin.Context) (*entity.User, error) {
 	id := utils.StringToInt(c.Param("id"))
 	user, err := ui.userRepository.FindByID(id)
 	if err != nil {
-		c.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
-		return
+		return nil, err
 	}
-	c.JSON(http.StatusOK, user)
+	return user, nil
 }
