@@ -1,10 +1,16 @@
 package api
 
 import (
-	"log"
+	"os"
 
 	"github.com/gin-gonic/gin"
+	"github.com/voltgizerz/go-hexagonal-arch/app/config"
 	"github.com/voltgizerz/go-hexagonal-arch/app/controller"
+)
+
+var (
+	log         = config.SetupLog()
+	defaultPort = ":8080"
 )
 
 type Router struct {
@@ -21,8 +27,14 @@ func (r *Router) StartServer() {
 	// Initialize route
 	r.InitUserRouter()
 
+	port := ":" + os.Getenv("PORT")
+	if port == ":" {
+		port = defaultPort
+	}
+
 	// Start server
-	if err := r.Router.Run(":8080"); err != nil {
+	if err := r.Router.Run(port); err != nil {
 		log.Fatal(err)
 	}
+	log.Info("Server started on localhost" + port)
 }
