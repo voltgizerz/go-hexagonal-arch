@@ -2,8 +2,8 @@ package main
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/voltgizerz/go-hexagonal-arch/app/api"
 	"github.com/voltgizerz/go-hexagonal-arch/app/config"
-	"github.com/voltgizerz/go-hexagonal-arch/app/config/api"
 	"github.com/voltgizerz/go-hexagonal-arch/app/controller"
 	"github.com/voltgizerz/go-hexagonal-arch/app/interactor"
 	"github.com/voltgizerz/go-hexagonal-arch/app/repository"
